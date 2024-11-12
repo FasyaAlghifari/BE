@@ -1,0 +1,8 @@
+[service]
+name = "backend"
+
+[build]
+workingDirectory = "./Server"
+
+[start]
+command = "go run main.go"
