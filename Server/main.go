@@ -3,6 +3,7 @@ package main
 import (
 	"project-its/controllers"
 	"project-its/initializers"
+	"project-its/middleware"
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -44,7 +45,7 @@ func main() {
 	}
 
 	// Terapkan middleware autentikasi ke semua route selanjutnya
-	// r.Use(middleware.TokenAuthMiddleware())
+	r.Use(middleware.TokenAuthMiddleware())
 
 	// Routes for User
 	store := cookie.NewStore([]byte("secret"))
