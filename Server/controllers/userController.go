@@ -61,9 +61,11 @@ func Login(c *gin.Context) {
 		Name:     "token",
 		Value:    token,
 		Path:     "/",
-		HttpOnly: false,          // Menetapkan cookie sebagai HttpOnly
-		MaxAge:   3600 * 24 * 30, // Masa berlaku cookie (30 hari)
-		// secure: true, // Uncomment jika menggunakan HTTPS
+		Domain:   "https://fe-production-a15e.up.railway.app/",
+		MaxAge:   3600 * 24 * 30,
+		HttpOnly: true,
+		SameSite: http.SameSiteLaxMode,
+		Secure:   true,
 	})
 
 	// Tambahkan informasi pengguna dalam response
@@ -72,6 +74,7 @@ func Login(c *gin.Context) {
 			"username": foundUser.Username,
 			"email":    foundUser.Email,
 		},
+		"token": token,
 	})
 }
 
