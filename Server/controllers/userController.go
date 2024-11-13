@@ -61,7 +61,7 @@ func Login(c *gin.Context) {
 		Name:     "token",
 		Value:    token,
 		Path:     "/",
-		Domain:   "up.railway.app/",
+		Domain:   "up.railway.app",
 		MaxAge:   3600 * 24 * 30,
 		HttpOnly: true,
 		SameSite: http.SameSiteLaxMode,
