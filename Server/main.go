@@ -36,12 +36,13 @@ func main() {
 		MaxAge: 12 * time.Hour,
 	}))
 
-	//Websocket route
-	r.GET("/ws", controllers.WebSocketHandler)
-
-	// Route yang tidak memerlukan autentikasi
-	r.POST("/register", controllers.Register)
-	r.POST("/login", controllers.Login)
+	// Grup untuk route publik (tidak memerlukan autentikasi)
+	public := r.Group("/")
+	{
+		public.POST("/register", controllers.Register)
+		public.POST("/login", controllers.Login)
+		public.GET("/ws", controllers.WebSocketHandler)
+	}
 
 	// Terapkan middleware autentikasi ke semua route selanjutnya
 	r.Use(middleware.TokenAuthMiddleware())

@@ -12,6 +12,19 @@ import (
 
 func TokenAuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		// Daftar path yang dikecualikan
+		exemptPaths := []string{"/login", "/register", "/ws"}
+		
+		// Cek apakah path saat ini termasuk yang dikecualikan
+		currentPath := c.Request.URL.Path
+		for _, path := range exemptPaths {
+			if currentPath == path {
+				c.Next()
+				return
+			}
+		}
+
+		// Lanjutkan dengan pengecekan token seperti sebelumnya
 		cookie, err := c.Cookie("token")
 		if err != nil {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Anda tidak bisa mengakses halaman ini. Silahkan Login Terlebih Dahulu atau Anda Bisa Register Terlebih Dahulu Kepada Admin"})
