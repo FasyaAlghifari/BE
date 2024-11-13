@@ -14,7 +14,7 @@ func TokenAuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// Daftar path yang dikecualikan
 		exemptPaths := []string{"/login", "/register", "/ws", "/"}
-		
+
 		// Cek apakah path saat ini termasuk yang dikecualikan
 		currentPath := c.Request.URL.Path
 		for _, path := range exemptPaths {
